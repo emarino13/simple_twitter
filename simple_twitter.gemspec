@@ -5,8 +5,8 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Elaine Marino"]
   gem.email         = ["elaine.c.marino@gmail.com"]
   gem.description   = %q{Twitter Class Project}
-  gem.summary       = %q{Twitter Class Gem}
-  gem.homepage      = ""
+  gem.summary       = %q{Shows how to search Twitter and work with JSON}
+  gem.homepage      = "https://github.com/emarino13/simple_twitter"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
