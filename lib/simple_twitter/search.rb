@@ -8,7 +8,7 @@ module SimpleTwitter
     attr_accessor(:lang)
 
     def initialize
-      @per_page=10
+      @per_page= 7
       @lang = 'en'
     end
 
