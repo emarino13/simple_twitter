@@ -1,6 +1,7 @@
 require('httparty')
 require('json')
 
+require('simple_twitter/tweet')
 require('simple_twitter/search')
 require('simple_twitter/version')
 

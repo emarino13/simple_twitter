@@ -8,20 +8,19 @@ module SimpleTwitter
     attr_accessor(:lang)
 
     def initialize
-      @per_page= 7
+      @per_page= 10
       @lang = 'en'
     end
 
     def search (query)
       params = {
         :q => query,
-        :rpp => @per_page, :lang => @lang
+        :rpp => per_page,
+        :lang => lang,
       }
-      response = HTTParty.get(SEARCH_URL, :query => params)
-      #same as {:query=>params}    end
-      #:timeout is a key inside the hash that works with HTTParty
-      JSON.parse(response.body)
-      #same as return.JSON.parse(response.body) -- last line is instructions
+     response = HTTParty.get(SEARCH_URL, :query => params)
+     nasty_hash = JSON.parse(response.body)
+     nasty_hash['results'].map {|r| Tweet.new(r)}
     end
   end
 end
