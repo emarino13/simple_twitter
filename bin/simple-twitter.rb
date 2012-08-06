@@ -1,26 +1,40 @@
 #!/usr/bin/env ruby
 require('simple_twitter')
 require('pp')
+require('optparse')
 
-p=SimpleTwitter::Search.new
+class UserInterface
 
-  loop do
-    $stdout.write("What would you like to search twitter?")
-    input=$stdin.gets.chomp
+   def initialize
+    @searcher = SimpleTwitter::Search.new
 
-    $stdout.write("How many result per page?")
-    perpage=$stdin.gets.chomp
+    OptionParser.new do |parser|
+      parser.banner = "Usage: simple-twitter [options] search-query"
 
-    $stdout.write("What language would you like?")
-    language=$stdin.gets.chomp
+      parser.on('-h', '--help', 'This message') do
+        $stdout.puts(parser)
+        exit
+      end
 
-    p.per_page = perpage
-    p.lang = language
-    pp(p.search(input))
-
-    break if input ==("quit")
+      parser.on('-r', '--results-per-page=COUNT', 'Return COUNT tweets') do |rpp|
+        @searcher.results_per_page = rpp.to_i
+      end
+    end.parse!(ARGV)
   end
 
+  def run
+    if ARGV.empty?
+      $stderr.puts("Please give a search query on the command line")
+      exit(1)
+    end
+
+    ARGV.each do |query|
+      pp(@searcher.search(query))
+    end
+  end
+end
+
+UserInterface.new.run
 
 
 
